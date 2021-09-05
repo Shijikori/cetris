@@ -24,16 +24,21 @@ struct color
     }
 };
 
-void drawQuad(float x, float y, float size, color color)
+void drawQuad(float x, float y, float w, float h, color color)
 {
     glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS);
         glColor4f(color.red, color.green, color.blue, color.alpha);
         glVertex2f(x, y);
-        glVertex2f(x + size, y);
-        glVertex2f(x + size, y + size);
-        glVertex2f(x, y + size);
+        glVertex2f(x + w, y);
+        glVertex2f(x + w, y + h);
+        glVertex2f(x, y + h);
     glEnd();
+}
+
+void drawSquare(float x, float y, float size, color color)
+{
+    drawQuad(x,y,size,size,color);
 }
 
 int main(int argc, char *argv[])
@@ -74,7 +79,7 @@ int main(int argc, char *argv[])
     while(!glfwWindowShouldClose(window))
     {
         // drawing a quad
-        drawQuad(0.0, 0.0, 8, color(0.5, 0.1, 0.7));
+        drawSquare(0.0, 0.0, 8, color(0.5, 0.1, 0.7));
 
         // drawing a triangle
         // TODO : move to function
