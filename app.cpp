@@ -46,6 +46,12 @@ int main(int argc, char *argv[])
 
     dpy = XOpenDisplay(NULL);
 
+    if (dpy == NULL)
+    {
+        std::cout << "Could not connect to X server\n\n";
+        exit(0);
+    }
+
     root = DefaultRootWindow(dpy);
 
     vi = glXChooseVisual(dpy, 0, att);
@@ -55,10 +61,46 @@ int main(int argc, char *argv[])
         std::cout << "Could not find appropriate visuals\n\n";
         exit(0);
     }
-    if (dpy == NULL)
+    else
     {
-        std::cout << "Could not connect to X server\n\n";
-        exit(0);
+        std::printf("\n\tvisual %p selected\n", (void *)vi->visualid);
     }
+
+    cmap = XCreateColormap(dpy, root, vi->visual, AllocNone);
+
+    swa.colormap = cmap;
+    swa.event_mask = ExposureMask | KeyPressMask;
+
+    win = XCreateWindow(dpy, root, 0, 0, 600, 600, 0, vi->depth, InputOutput, vi->visual, CWColormap | CWEventMask, &swa);
+
+    XMapWindow(dpy, win);
+    XStoreName(dpy, win, "GLApp");
+
+    glc = glXCreateContext(dpy, vi, NULL, GL_TRUE);
+    glXMakeCurrent(dpy, win, glc);
+
+    glEnable(GL_DEPTH_TEST);
+
+    while(1)
+    {
+        XNextEvent(dpy, &xev);
+
+        if (xev.type == Expose)
+        {
+            XGetWindowAttributes(dpy, win, &gwa);
+            glViewport(0, 0, gwa.width, gwa.height);
+            drawQuad();
+            glXSwapBuffers(dpy, win);
+        }
+        else if (xev.type == KeyPress)
+        {
+            glXMakeCurrent(dpy, None, NULL);
+            glXDestroyContext(dpy, glc);
+            XDestroyWindow(dpy, win);
+            XCloseDisplay(dpy);
+            exit(0);
+        }
+    }
+    
     return 0;
 }
