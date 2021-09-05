@@ -8,9 +8,14 @@
 			"args": [
 				"-g",
 				"${file}",
-				"-lX11",
+				"-lglfw",
 				"-lGL",
-				"-lGLU",
+				"-lm",
+				"-lXrandr",
+				"-lXi",
+				"-lX11",
+				"-lXxf86vm",
+				"-lpthread",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
