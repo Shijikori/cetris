@@ -16,8 +16,10 @@ int main(int argc, char *argv[])
 
     // Create window
     window = glfwCreateWindow(640, 480, "GLApp", NULL, NULL);
-    glfwSetWindowMonitor(window, NULL, 0, 0, 0, 0, 60);
-    glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE);
+
+    // Set window attributes
+    glfwSetWindowMonitor(window, NULL, 0, 0, 0, 0, 60); // 60fps cap *hypothetical
+    glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE); // makes window unresizable
 
     if (!window)
     {
