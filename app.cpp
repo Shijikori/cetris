@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
 
     // set context
     glfwMakeContextCurrent(window);
+
+    // print GL version
+    std::cout << glGetString(GL_VERSION) << "\n";
     
     // run until window is closed
     while(!glfwWindowShouldClose(window))
