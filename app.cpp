@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
     {
         // calculate size from quadratic fonction
         float size = ((-0.00087890625 * pow(x, 2)) + (0.5625*x));
-        std::cout << size << std::endl;
+        //std::cout << size << std::endl;
 
         // drawing a quad
         drawSquare(x, y, size, color(0.5, 0.1, 0.7));

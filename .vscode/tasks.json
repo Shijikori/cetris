@@ -16,6 +16,8 @@
 				"-lX11",
 				"-lXxf86vm",
 				"-lpthread",
+				"-I",
+				"libs/shapes.hpp",
 				"-o",
 				"${fileDirname}/${fileBasenameNoExtension}"
 			],
