@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     static int _G_WIDTH = 640;
     static int _G_HEIGHT = 480;
     static int _G_DEPTH = 3;
-    
+
     std::cout << "Game starting...\n";
     
     // declaration of window
@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
     glfwMakeContextCurrent(window);
 
     // print GL version
+    std::cout << glGetString(GL_RENDERER) << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     
     // set resolution scale
