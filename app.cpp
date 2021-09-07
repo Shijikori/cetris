@@ -6,13 +6,15 @@
 #include <GLFW/glfw3.h>
 #include "libs/shapes.hpp"
 
-// Window Settings
-int _G_WIDTH = 640;
-int _G_HEIGHT = 480;
-int _G_DEPTH = 3;
+
 
 int main(int argc, char *argv[])
 {
+    // Window Settings
+    static int _G_WIDTH = 640;
+    static int _G_HEIGHT = 480;
+    static int _G_DEPTH = 3;
+    
     std::cout << "Game starting...\n";
     
     // declaration of window
