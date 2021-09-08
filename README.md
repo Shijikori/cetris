@@ -1,9 +1,11 @@
 # Cetris
 
+## About
+
 This project aims to become a tetris clone made in C++ using GLFW.
 This software is currently only tested on Arch Linux.
 
-# Requirements
+## Requirements
 
 You need the GLFW library and GNU C/C++ Compiler (GCC) installed on your system.
 
