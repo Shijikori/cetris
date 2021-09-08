@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
     // Set window attributes
     glfwSetWindowMonitor(window, NULL, 0, 0, 0, 0, 60); // 60fps cap *hypothetical
     glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE); // makes window unresizable
-    //glViewport(GLint(0),GLint(0), _G_WIDTH, _G_HEIGHT);
 
     // check if window is alive
     if (!window)
@@ -48,20 +47,20 @@ int main(int argc, char *argv[])
     // set resolution scale
     glOrtho(0, _G_WIDTH, 0, _G_HEIGHT, 0, _G_DEPTH);
 
-    // run until window is closed
+    // initial coordinates for square
     int x = 0;
     int y = 200;
+    // run until window is closed
     while(!glfwWindowShouldClose(window))
     {
         // calculate size from quadratic fonction
         float size = ((-0.00087890625 * pow(x, 2)) + (0.5625*x));
-        //std::cout << size << std::endl;
 
         // drawing a quad
         drawSquare(x, y, size, color(0.5, 0.1, 0.7));
 
         // drawing a triangle
-        // TODO : move to function
+        // TODO : move commented code to function
         /*glBegin(GL_TRIANGLES);
             glColor4f(0.46, 0.1, 0.7, 0.93);
             glVertex2f(0, -0.5);
@@ -75,7 +74,6 @@ int main(int argc, char *argv[])
         // poll for events
         glfwPollEvents();
         if (x > _G_WIDTH) x = 0;
-        //if (y > _G_HEIGHT) y = 0;
         x++;
     }
 
