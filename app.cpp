@@ -59,15 +59,6 @@ int main(int argc, char *argv[])
         // drawing a quad
         drawSquare(x, y, size, color(0.5, 0.1, 0.7));
 
-        // drawing a triangle
-        // TODO : move commented code to function
-        /*glBegin(GL_TRIANGLES);
-            glColor4f(0.46, 0.1, 0.7, 0.93);
-            glVertex2f(0, -0.5);
-            glVertex2f(-0.4, 0.5);
-            glVertex2f(0.4, 0.5);
-        glEnd();*/
-
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
 

@@ -18,6 +18,18 @@ struct color
     }
 };
 
+// Draw a triangle (needs improvement)
+void drawTriangle()
+{
+    // TODO : Improve triangle drawing
+    glBegin(GL_TRIANGLES);
+        glColor4f(0.46, 0.1, 0.7, 0.93);
+        glVertex2f(0, -0.5);
+        glVertex2f(-0.4, 0.5);
+        glVertex2f(0.4, 0.5);
+    glEnd();
+}
+
 // Draw a quad
 void drawQuad(float x, float y, float w, float h, color color)
 {
