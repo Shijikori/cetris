@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cmath>
+#include <cstdint>
 #include <iostream>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
@@ -8,8 +9,20 @@
 
 void genBitmap(int width, int height, void *mem)
 {
-    //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_INT_8_8_8_8, map); (targer format)
+    //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_INT_8_8_8_8, map); (targert format)
+
+    if (mem) std::free(mem);
     mem = malloc((width * height) * 4); // allocate memory for bitmap with 4 bytes per pixel.
+
+    int pitch = width * 4;
+    uint8_t *row = (uint8_t *)mem;
+    for (int y; y < height; y++)
+    {
+        for (int x; x < width; x++)
+        {
+
+        }
+    }
 }
 
 // Pixel struct, might be unused
