@@ -79,8 +79,10 @@ int main(int argc, char *argv[])
     // run until window is closed
     while(!glfwWindowShouldClose(window))
     {
-        //glClearColor(0.0, 0.0, 0.0, 0.0);
+        
+        // clear buffer
         glClear(GL_COLOR_BUFFER_BIT);
+
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
 
