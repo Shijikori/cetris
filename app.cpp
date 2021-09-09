@@ -6,7 +6,28 @@
 #include <GLFW/glfw3.h>
 #include "libs/shapes.hpp"
 
+void genBitmap(int width, int height, void *mem)
+{
+    //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_INT_8_8_8_8, map); (targer format)
+    mem = malloc((width * height) * 4); // allocate memory for bitmap with 4 bytes per pixel.
+}
 
+// Pixel struct, might be unused
+struct pixel
+{
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+    uint8_t padding;
+    // construtor
+    pixel(uint8_t r, uint8_t g, uint8_t b)
+    {
+        red = r;
+        green = g;
+        blue = b;
+        padding = 0;
+    }
+};
 
 int main(int argc, char *argv[])
 {
@@ -24,7 +45,7 @@ int main(int argc, char *argv[])
     if (!glfwInit()) return -1;
 
     // Create window
-    window = glfwCreateWindow(_G_WIDTH, _G_HEIGHT, "GLApp", NULL, NULL);
+    window = glfwCreateWindow(_G_WIDTH, _G_HEIGHT, "Cetris [Indev]", NULL, NULL);
 
     // Set window attributes
     glfwSetWindowMonitor(window, NULL, 0, 0, 0, 0, 60); // 60fps cap *hypothetical
@@ -47,29 +68,28 @@ int main(int argc, char *argv[])
     // set resolution scale
     glOrtho(0, _G_WIDTH, 0, _G_HEIGHT, 0, _G_DEPTH);
 
-    // initial coordinates for square
-    int x = 0;
-    int y = 200;
+    // Generating a bitmap for glDrawPixels
+    //void *bitmap;   // bitmap pointer
+    int fb_w, fb_h; // framebuffer width and height variables
+    glfwGetFramebufferSize(window, &fb_w, &fb_h); //get FB size to make proper image
+
+    std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n";
+
+
     // run until window is closed
     while(!glfwWindowShouldClose(window))
     {
-        // calculate size from quadratic fonction
-        float size = ((-0.00087890625 * pow(x, 2)) + (0.5625*x));
-
-        // drawing a quad
-        drawSquare(x, y, size, color(0.5, 0.1, 0.7));
-
+        //glClearColor(0.0, 0.0, 0.0, 0.0);
+        glClear(GL_COLOR_BUFFER_BIT);
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
 
         // poll for events
         glfwPollEvents();
-        if (x > _G_WIDTH) x = 0;
-        x++;
+
     }
 
     // terminate GL once window is closed
     glfwTerminate();
-
     return 0;
 }

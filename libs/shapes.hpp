@@ -33,7 +33,6 @@ void drawTriangle()
 // Draw a quad
 void drawQuad(float x, float y, float w, float h, color color)
 {
-    glClear(GL_COLOR_BUFFER_BIT);
     glBegin(GL_QUADS);
         glColor4f(color.red, color.green, color.blue, color.alpha);
         glVertex2f(x, y);
