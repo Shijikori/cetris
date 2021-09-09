@@ -7,7 +7,7 @@
 			"command": "/usr/bin/g++",
 			"args": [
 				"-g",
-				"${file}",
+				"app.cpp",
 				"-lglfw",
 				"-lGL",
 				"-lm",
@@ -17,9 +17,10 @@
 				"-lXxf86vm",
 				"-lpthread",
 				"-I",
-				"libs/shapes.hpp",
+				"libs",
 				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}"
+				"${fileDirname}/${fileBasenameNoExtension}",
+				"-Wall"
 			],
 			"options": {
 				"cwd": "${fileDirname}"

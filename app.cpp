@@ -32,9 +32,9 @@ struct pixel
 int main(int argc, char *argv[])
 {
     // Window Settings
-    static int _G_WIDTH = 640;
-    static int _G_HEIGHT = 480;
-    static int _G_DEPTH = 3;
+    static int _G_WIDTH = 640;  // global width
+    static int _G_HEIGHT = 480; // global height
+    static int _G_DEPTH = 3;    // global depth
 
     std::cout << "Game starting...\n";
     
@@ -71,6 +71,7 @@ int main(int argc, char *argv[])
     // Generating a bitmap for glDrawPixels
     //void *bitmap;   // bitmap pointer
     int fb_w, fb_h; // framebuffer width and height variables
+    
     glfwGetFramebufferSize(window, &fb_w, &fb_h); //get FB size to make proper image
 
     std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n";
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
     // run until window is closed
     while(!glfwWindowShouldClose(window))
     {
-        
+
         // clear buffer
         glClear(GL_COLOR_BUFFER_BIT);
 
