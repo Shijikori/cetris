@@ -7,22 +7,24 @@
 #include <GLFW/glfw3.h>
 #include "libs/shapes.hpp"
 
-void genBitmap(int width, int height, void *mem)
+void genBitmap(int width, int height, GLubyte *&mem)
 {
     //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_INT_8_8_8_8, map); (targert format)
 
-    if (mem) std::free(mem);
-    mem = malloc((width * height) * 4); // allocate memory for bitmap with 4 bytes per pixel.
-
-    int pitch = width * 4;
-    uint8_t *row = (uint8_t *)mem;
-    for (int y; y < height; y++)
+    if (!mem) std::free(mem);
+    mem = new GLubyte[width * height * 3];
+    
+    for (int y = 0; y < height; y++)
     {
-        for (int x; x < width; x++)
+        for (int x = 0; x < width; x++)
         {
-
+            int pos = (x + y * width) * 3;
+            mem[pos    ] = 255 - (x % 255);
+            mem[pos + 1] = 255 - ((x * y) % 255);
+            mem[pos + 2] = y % 255;
         }
     }
+    std::cout << "bitmap complete!\n";
 }
 
 // Pixel struct, might be unused
@@ -82,13 +84,15 @@ int main(int argc, char *argv[])
     glOrtho(0, _G_WIDTH, 0, _G_HEIGHT, 0, _G_DEPTH);
 
     // Generating a bitmap for glDrawPixels
-    //void *bitmap;   // bitmap pointer
+    GLubyte *bitmap;   // bitmap pointer
     int fb_w, fb_h; // framebuffer width and height variables
     
     glfwGetFramebufferSize(window, &fb_w, &fb_h); //get FB size to make proper image
 
     std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n";
-
+    std::cout << "f:" << bitmap << "f&:" << &bitmap << "\n";
+    genBitmap(fb_w, fb_h, bitmap);
+    //genBitmap(fb_w, fb_h, bitmap);
 
     // run until window is closed
     while(!glfwWindowShouldClose(window))
@@ -97,6 +101,8 @@ int main(int argc, char *argv[])
         // clear buffer
         glClear(GL_COLOR_BUFFER_BIT);
 
+        glDrawPixels(fb_w, fb_h, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
 
@@ -104,7 +110,7 @@ int main(int argc, char *argv[])
         glfwPollEvents();
 
     }
-
+    std::free(bitmap);
     // terminate GL once window is closed
     glfwTerminate();
     return 0;
