@@ -9,8 +9,6 @@
 
 void genBitmap(int width, int height, GLubyte *&mem)
 {
-    //glDrawPixels(width, height, GL_RGB, GL_UNSIGNED_INT_8_8_8_8, map); (targert format)
-
     if (!mem) std::free(mem);
     mem = new GLubyte[width * height * 3];
     
@@ -92,7 +90,6 @@ int main(int argc, char *argv[])
     std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n";
     std::cout << "f:" << bitmap << "f&:" << &bitmap << "\n";
     genBitmap(fb_w, fb_h, bitmap);
-    //genBitmap(fb_w, fb_h, bitmap);
 
     // run until window is closed
     while(!glfwWindowShouldClose(window))
@@ -110,7 +107,8 @@ int main(int argc, char *argv[])
         glfwPollEvents();
 
     }
-    std::free(bitmap);
+    delete[] bitmap;
+    
     // terminate GL once window is closed
     glfwTerminate();
     return 0;
