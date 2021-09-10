@@ -13,8 +13,8 @@ You need the GLFW library and GNU C/C++ Compiler (GCC) and their respective depe
 
 Install the following packages for Arch based distributions :
 ```
-glfw-x11
 gcc
+glfw-x11
 ```
 
 ### Ubuntu based distributions
