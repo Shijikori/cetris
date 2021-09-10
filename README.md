@@ -7,9 +7,27 @@ This software is currently only tested on Arch Linux.
 
 ## Requirements
 
-You need the GLFW library and GNU C/C++ Compiler (GCC) installed on your system.
+You need the GLFW library and GNU C/C++ Compiler (GCC) and their respective dependancies installed on your system.
+
+### Arch based ditributions
+
+Install the following packages for Arch based distributions :
+```
+glfw-x11
+gcc
+```
+
+### Ubuntu based distributions
+
+Install the following packages for Ubuntu based distributions :
+```
+gcc-10
+libglfw3-dev
+```
 
 ## Build & Run
+
+!! Warning : the scripts have only been tested on Arch based ditributions! If it fails to build, you will have to figure out how to call for some libraries on your distribution.
 
 Launch the script `build.sh` to build the application binary.
 
