@@ -25,22 +25,6 @@ void genBitmap(int width, int height, GLubyte *&mem)
     std::cout << "bitmap complete!\n";
 }
 
-// Pixel struct, might be unused
-struct pixel
-{
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-    uint8_t padding;
-    // construtor
-    pixel(uint8_t r, uint8_t g, uint8_t b)
-    {
-        red = r;
-        green = g;
-        blue = b;
-        padding = 0;
-    }
-};
 
 int main(int argc, char *argv[])
 {
