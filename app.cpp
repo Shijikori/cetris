@@ -5,8 +5,10 @@
 #include <iostream>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
+#include <SFML/Audio.hpp>
 #include "libs/shapes.hpp"
 
+// Generate a bitmap. Takes width, height and a memory pointer.
 void genBitmap(int width, int height, GLubyte *&mem)
 {
     if (!mem) std::free(mem);
@@ -22,7 +24,7 @@ void genBitmap(int width, int height, GLubyte *&mem)
             mem[pos + 2] = y % 255;
         }
     }
-    std::cout << "bitmap complete!\n";
+    std::cout << "bitmap complete!\n"; // debug
 }
 
 
@@ -33,11 +35,14 @@ int main(int argc, char *argv[])
     static int _G_HEIGHT = 480; // global height
     static int _G_DEPTH = 3;    // global depth
 
-    std::cout << "Game starting...\n";
-    
     // declaration of window
     GLFWwindow* window;
 
+    // music
+    sf::Music music;
+    if (!music.openFromFile("assets/sound/music.ogg"))
+        return -1;
+    
     // Init Library
     if (!glfwInit()) return -1;
 
@@ -71,9 +76,15 @@ int main(int argc, char *argv[])
     
     glfwGetFramebufferSize(window, &fb_w, &fb_h); //get FB size to make proper image
 
-    std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n";
-    std::cout << "f:" << bitmap << "f&:" << &bitmap << "\n";
+    std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n"; // debug output
+
     genBitmap(fb_w, fb_h, bitmap);
+
+
+    // music settings
+    music.setVolume(50.0);
+    music.setLoop(true);
+    music.play();
 
     // run until window is closed
     while(!glfwWindowShouldClose(window))
@@ -82,6 +93,7 @@ int main(int argc, char *argv[])
         // clear buffer
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // draw generated image on screen
         glDrawPixels(fb_w, fb_h, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
 
         // swap buffers for display (double buffering)

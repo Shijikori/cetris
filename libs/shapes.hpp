@@ -1,7 +1,8 @@
 #pragma once
 #include <GL/gl.h>
 
-// Color struct to store color data
+/* Color struct to store color data.
+Contructor takes float red, float green, float blue and float alpha values.*/
 struct color
 {
     float red;

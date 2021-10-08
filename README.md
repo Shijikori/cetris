@@ -7,7 +7,7 @@ This software is currently only tested on Arch Linux.
 
 ## Requirements
 
-You need the GLFW library and GNU C/C++ Compiler (GCC) and their respective dependancies installed on your system.
+You need the GLFW library, SFML framework and GNU C/C++ Compiler (GCC) and their respective dependancies installed on your system.
 
 ### Arch based ditributions
 
@@ -15,6 +15,7 @@ Install the following packages for Arch based distributions :
 ```
 gcc
 glfw-x11
+sfml
 ```
 
 ### Ubuntu based distributions
@@ -23,6 +24,7 @@ Install the following packages for Ubuntu based distributions :
 ```
 gcc-10
 libglfw3-dev
+libsfml-dev
 ```
 
 ## Build & Run
