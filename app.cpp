@@ -1,7 +1,5 @@
 #include <cstdio>
 #include <cstdlib>
-#include <cmath>
-#include <cstdint>
 #include <iostream>
 #include <GL/gl.h>
 #include <GLFW/glfw3.h>
