@@ -1,4 +1,4 @@
 #!/bin/bash
 ./build.sh
-./app
+./cetris
 ./clean.sh
