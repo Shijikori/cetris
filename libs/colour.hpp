@@ -1,6 +1,6 @@
 #pragma once
 
-/* Color struct to store color data.
+/* Colour struct to store colour data.
 Contructor takes float red, float green, float blue and float alpha values.*/
 struct Colour
 {
