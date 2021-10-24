@@ -58,7 +58,6 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
 
     std::string line;
     int hLineCount = 3;
-    int maxVal;
 
     /* Count number of lines in the header */
     for (int i = 0; i < hLineCount; i++)
@@ -94,13 +93,15 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
     mem = new GLubyte[size[0] * size[1] * 3];
 
     skipCommentsPPM(file, line);
-    
-    maxVal = std::stoi(line);
+
+    assert(std::stoi(line) == 255);
 
     for (int i = 0; i < (size[0] * size[1] * 3); i++)
     {
-        GLubyte data;
-        file >> data;
-        mem[i] = (data / (float)maxVal) * 255;
+        char data;
+        file.get(data);
+        if (data == '\n' && i == 0)
+            file.get(data);
+        mem[i] = GLubyte(data);
     }
 }
