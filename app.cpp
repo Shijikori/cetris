@@ -59,9 +59,13 @@ int main(int argc, char *argv[])
 
     genBitmap(fb_w, fb_h, bitmap);
 
+    GLubyte *image;
+    int image_size[2];
+    loadPPM("assets/image/test.ppm", image, image_size);
+    std::cout << "imgsize " << image_size[0] << "x" << image_size[1] << std::endl;
 
     // music settings
-    music.setVolume(50.0f);
+    music.setVolume(20.0f);
     music.setLoop(true);
     music.play();
 
@@ -75,6 +79,8 @@ int main(int argc, char *argv[])
         // draw generated image on screen
         glDrawPixels(fb_w, fb_h, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
 
+        glDrawPixels(image_size[0], image_size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
+
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
 
@@ -83,6 +89,7 @@ int main(int argc, char *argv[])
 
     }
     delete[] bitmap;
+    delete[] image;
     
     // terminate GL once window is closed
     glfwTerminate();
