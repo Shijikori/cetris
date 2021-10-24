@@ -94,22 +94,13 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
     mem = new GLubyte[size[0] * size[1] * 3];
 
     skipCommentsPPM(file, line);
-    std::cout << line << std::endl;
+    
     maxVal = std::stoi(line);
 
-    for (int y = 0; y < size[1]; y++)
+    for (int i = 0; i < (size[0] * size[1] * 3); i++)
     {
-        for (int x = 0; x < size[0]; x++)
-        {
-            int pos = (x + y * size[0]) * 3;
-            GLubyte data;
-            file >> data;
-            mem[pos] = ((float(data) / float(maxVal)) * 255);
-            file >> data;
-            mem[pos + 1] = ((float(data) / float(maxVal)) * 255);
-            file >> data;
-            mem[pos + 2] = ((float(data) / float(maxVal)) * 255);
-        }
-        
+        GLubyte data;
+        file >> data;
+        mem[i] = (data / (float)maxVal) * 255;
     }
 }
