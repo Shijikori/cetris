@@ -24,7 +24,6 @@ void genBitmap(int width, int height, GLubyte *&mem)
             mem[pos + 2] = (y % 255) * (255.0/width);
         }
     }
-    std::cout << "bitmap complete!\n"; // debug
 }
 
 // Load a PPM file.
