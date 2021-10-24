@@ -28,6 +28,7 @@ void genBitmap(int width, int height, GLubyte *&mem)
     }
 }
 
+// Skips the comment lines of PPM headers, goes unti next non-comment line.
 void skipCommentsPPM(std::ifstream &file, std::string &lineVar)
 {
     /* skip comments loop */
@@ -46,10 +47,6 @@ void skipCommentsPPM(std::ifstream &file, std::string &lineVar)
 // Load a PPM file into memory. Loads only format P6.
 void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
 {
-    /*
-    TODO: 
-    - Read pixel data as integers, put data in memory.
-    */
     assert(imgPath != "\0");
 
     if (!mem) std::free(mem);
@@ -94,8 +91,9 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
 
     skipCommentsPPM(file, line);
 
-    assert(std::stoi(line) == 255);
+    assert(std::stoi(line) == 255); // we don't like maxval that isn't 255 here.
 
+    /* move pixel data into memory */
     for (int i = 0; i < (size[0] * size[1] * 3); i++)
     {
         char data;
