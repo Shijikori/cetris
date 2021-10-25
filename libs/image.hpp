@@ -4,6 +4,7 @@
 #include <fstream>
 #include <cassert>
 #include <cstdint>
+#include <iostream>
 
 // Generate a bitmap. Takes width, height and a memory pointer.
 void genBitmap(int width, int height, GLubyte *&mem)
@@ -54,16 +55,6 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
     std::ifstream file(imgPath, std::ios::binary); //open the image file as binary.
 
     std::string line;
-    int hLineCount = 3;
-
-    /* Count number of lines in the header */
-    for (int i = 0; i < hLineCount; i++)
-    {
-        std::getline(file, line);
-        if (line[0] == '#') hLineCount++;
-    }
-
-    file.seekg(0, file.beg);
     
     /* seek to P */
     do
