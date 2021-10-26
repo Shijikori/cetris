@@ -25,12 +25,11 @@ int main(int argc, char *argv[])
     // Init Library
     if (!glfwInit()) return -1;
 
+    // Set window attributes
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
     // Create window
     window = glfwCreateWindow(_G_WIDTH, _G_HEIGHT, "Cetris [Indev]", NULL, NULL);
-
-    // Set window attributes
-    glfwSetWindowMonitor(window, NULL, 0, 0, 0, 0, 60); // 60fps cap *hypothetical
-    glfwSetWindowAttrib(window, GLFW_RESIZABLE, GLFW_FALSE); // makes window unresizable
 
     // check if window is alive
     if (!window)
@@ -43,7 +42,7 @@ int main(int argc, char *argv[])
     glfwMakeContextCurrent(window);
 
     // print GL version
-    std::cout << glGetString(GL_RENDERER) << "\n";
+    std::cout << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     
     // set resolution scale
@@ -90,7 +89,7 @@ int main(int argc, char *argv[])
     }
     delete[] bitmap;
     delete[] image;
-    
+
     // terminate GL once window is closed
     glfwTerminate();
     return 0;
