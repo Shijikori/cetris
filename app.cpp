@@ -56,13 +56,12 @@ int main(int argc, char *argv[])
 
     std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n"; // debug output
 
-    /*GLubyte *image;
-    int image_size[2];
-    loadPPM("assets/image/test.ppm", image, image_size);
-    std::cout << "imgsize " << image_size[0] << "x" << image_size[1] << std::endl;*/
-    glEnable(GL_TEXTURE_2D);
-    GLuint tex = textureFromPPM("assets/image/test.ppm");
+    glEnable(GL_TEXTURE_2D); // Make sure 2D textures are enabled *shrug*
+
+    GLuint tex[2];
+    tex[0] = textureFromPPM("assets/image/test.ppm");
     genBitmap(fb_w, fb_h, bitmap);
+    tex[1] = genTexture2D(bitmap, fb_w, fb_h);
 
     // music settings
     music.setVolume(20.0f);
@@ -77,10 +76,15 @@ int main(int argc, char *argv[])
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw generated image on screen
-        glDrawPixels(fb_w, fb_h, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
+        glBindTexture(GL_TEXTURE_2D, tex[1]);
+        glBegin(GL_QUADS);
+            glTexCoord2f(0,0);glVertex2f(0, fb_h);
+            glTexCoord2f(1,0);glVertex2f(0, 0);
+            glTexCoord2f(1,1);glVertex2f(fb_w, 0);
+            glTexCoord2f(0,1);glVertex2f(fb_w, fb_h);
+        glEnd();
 
-        //glDrawPixels(image_size[0], image_size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
-        glBindTexture(GL_TEXTURE_2D, tex);
+        glBindTexture(GL_TEXTURE_2D, tex[0]);
         glBegin(GL_QUADS);
             glTexCoord2f(0,0);glVertex2f(50.0, 50.0);
             glTexCoord2f(1,0);glVertex2f(50.0 + 64.0, 50.0);

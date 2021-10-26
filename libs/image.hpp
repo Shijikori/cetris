@@ -22,9 +22,9 @@ void genBitmap(int width, int height, GLubyte *&mem)
             GREEN
             BLUE
             */
-            mem[pos    ] = (255 - (x % 255)) * (255.0/width);
-            mem[pos + 1] = (255 - ((x * y) % 255)) * (255.0/width);
-            mem[pos + 2] = (y % 255) * (255.0/width);
+            mem[pos    ] = x * (255.0 / width);
+            mem[pos + 1] = 0;
+            mem[pos + 2] = y * (255.0 / height);
         }
     }
 }
@@ -95,20 +95,31 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
     }
 }
 
+// Generates a 2D texture with an image as an array of GLubytes.
+GLuint genTexture2D(GLubyte *&img, int w, int h)
+{
+    GLuint tex = 0;
+
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, w, h, 0, GL_RGB, GL_UNSIGNED_BYTE, img);
+    return tex;
+}
+
+// Makes a texture from a PPM file. Requires path to the file.
 GLuint textureFromPPM(std::string path)
 {
     GLuint tex = 0;
     GLubyte *image;
     int size[2];
 
-    glGenTextures(1, &tex);
-    glBindTexture(GL_TEXTURE_2D, tex);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     loadPPM(path, image, size);
-    //glReadPixels(0, 0, size[0], size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
-    //glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 0, 0, size[0], size[1], 0);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, size[0], size[1], 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    tex = genTexture2D(image, size[0], size[1]);
+    
     return tex;
 
 }
