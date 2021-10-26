@@ -56,12 +56,13 @@ int main(int argc, char *argv[])
 
     std::cout << "FB Size w:" << fb_w << " h:" << fb_h << "\n"; // debug output
 
-    genBitmap(fb_w, fb_h, bitmap);
-
-    GLubyte *image;
+    /*GLubyte *image;
     int image_size[2];
     loadPPM("assets/image/test.ppm", image, image_size);
-    std::cout << "imgsize " << image_size[0] << "x" << image_size[1] << std::endl;
+    std::cout << "imgsize " << image_size[0] << "x" << image_size[1] << std::endl;*/
+    glEnable(GL_TEXTURE_2D);
+    GLuint tex = textureFromPPM("assets/image/test.ppm");
+    genBitmap(fb_w, fb_h, bitmap);
 
     // music settings
     music.setVolume(20.0f);
@@ -78,7 +79,14 @@ int main(int argc, char *argv[])
         // draw generated image on screen
         glDrawPixels(fb_w, fb_h, GL_RGB, GL_UNSIGNED_BYTE, bitmap);
 
-        glDrawPixels(image_size[0], image_size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
+        //glDrawPixels(image_size[0], image_size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
+        glBindTexture(GL_TEXTURE_2D, tex);
+        glBegin(GL_QUADS);
+            glTexCoord2f(0,0);glVertex2f(50.0, 50.0);
+            glTexCoord2f(1,0);glVertex2f(50.0 + 64.0, 50.0);
+            glTexCoord2f(1,1);glVertex2f(50.0 + 64.0, 50.0 + 64.0);
+            glTexCoord2f(0,1);glVertex2f(50.0, 50.0 + 64.0);
+        glEnd();
 
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
@@ -88,7 +96,7 @@ int main(int argc, char *argv[])
 
     }
     delete[] bitmap;
-    delete[] image;
+    //delete[] image;
 
     // terminate GL once window is closed
     glfwTerminate();

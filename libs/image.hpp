@@ -94,3 +94,21 @@ void loadPPM(std::string imgPath, GLubyte *&mem, int *size)
         mem[i] = GLubyte(data);
     }
 }
+
+GLuint textureFromPPM(std::string path)
+{
+    GLuint tex = 0;
+    GLubyte *image;
+    int size[2];
+
+    glGenTextures(1, &tex);
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    loadPPM(path, image, size);
+    //glReadPixels(0, 0, size[0], size[1], GL_RGB, GL_UNSIGNED_BYTE, image);
+    //glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, 0, 0, size[0], size[1], 0);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB8, size[0], size[1], 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    return tex;
+
+}
