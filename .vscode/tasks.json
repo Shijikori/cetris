@@ -16,7 +16,16 @@
 				"kind": "build",
 				"isDefault": true
 			},
-			"detail": "compilateur : /usr/bin/g++"
+			"detail": "Build using build.sh"
+		},
+		{
+			"type": "shell",
+			"label": "Run Cetris",
+			"command": "${workspaceFolder}/run.sh",
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"detail": "Run using run.sh"
 		}
 	]
 }
