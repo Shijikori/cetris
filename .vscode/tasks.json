@@ -2,28 +2,12 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"type": "cppbuild",
-			"label": "Build GLApp",
-			"command": "/usr/bin/g++",
-			"args": [
-				"-g",
-				"app.cpp",
-				"-lglfw",
-				"-lGL",
-				"-lm",
-				"-lXrandr",
-				"-lXi",
-				"-lX11",
-				"-lXxf86vm",
-				"-lpthread",
-				"-I",
-				"libs",
-				"-o",
-				"${fileDirname}/${fileBasenameNoExtension}",
-				"-Wall"
-			],
+			"type": "shell",
+			"label": "Build Cetris",
+			"command": "${workspaceFolder}/build.sh",
+			"args": [],
 			"options": {
-				"cwd": "${fileDirname}"
+				"cwd": "${workspaceFolder}"
 			},
 			"problemMatcher": [
 				"$gcc"
