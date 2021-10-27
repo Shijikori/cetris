@@ -75,22 +75,9 @@ int main(int argc, char *argv[])
         // clear buffer
         glClear(GL_COLOR_BUFFER_BIT);
 
-        // draw generated image on screen
-        glBindTexture(GL_TEXTURE_2D, tex[1]);
-        glBegin(GL_QUADS);
-            glTexCoord2f(0,0);glVertex2f(0, fb_h);
-            glTexCoord2f(1,0);glVertex2f(0, 0);
-            glTexCoord2f(1,1);glVertex2f(fb_w, 0);
-            glTexCoord2f(0,1);glVertex2f(fb_w, fb_h);
-        glEnd();
+        drawQuad(0, 0, fb_w, fb_h, tex[1]);
 
-        glBindTexture(GL_TEXTURE_2D, tex[0]);
-        glBegin(GL_QUADS);
-            glTexCoord2f(0,0);glVertex2f(50.0, 50.0);
-            glTexCoord2f(1,0);glVertex2f(50.0 + 64.0, 50.0);
-            glTexCoord2f(1,1);glVertex2f(50.0 + 64.0, 50.0 + 64.0);
-            glTexCoord2f(0,1);glVertex2f(50.0, 50.0 + 64.0);
-        glEnd();
+        drawQuad((fb_w / 2) - 32, (fb_h / 2) - 32, 64, 64, tex[0]);
 
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
@@ -100,7 +87,6 @@ int main(int argc, char *argv[])
 
     }
     delete[] bitmap;
-    //delete[] image;
 
     // terminate GL once window is closed
     glfwTerminate();

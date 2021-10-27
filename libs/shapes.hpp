@@ -26,6 +26,18 @@ void drawQuad(float x, float y, float w, float h, Colour colour)
     glEnd();
 }
 
+// Draw a textured quad
+void drawQuad(float x, float y, float w, float h, GLuint tex)
+{
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glBegin(GL_QUADS);
+        glTexCoord2f(0,0);glVertex2f(x, y + h);
+        glTexCoord2f(1,0);glVertex2f(x + w, y + h);
+        glTexCoord2f(1,1);glVertex2f(x + w, y);
+        glTexCoord2f(0,1);glVertex2f(x, y);
+    glEnd();
+}
+
 // Draw a square
 void drawSquare(float x, float y, float size, Colour colour)
 {
