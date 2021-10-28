@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     // Window Settings
     static int _G_WIDTH = 640;  // global width
     static int _G_HEIGHT = 480; // global height
-    static int _G_DEPTH = 3;    // global depth
+    static int _G_DEPTH = 3;    // global depth - actually useless, leaving it for now.
 
     // declaration of window
     GLFWwindow* window;
@@ -45,8 +45,12 @@ int main(int argc, char *argv[])
     std::cout << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     
-    // set resolution scale
+    // set GL orthographic view
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
     glOrtho(0, _G_WIDTH, 0, _G_HEIGHT, 0, _G_DEPTH);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
 
     // Generating a bitmap for glDrawPixels
     GLubyte *bitmap;   // bitmap pointer
