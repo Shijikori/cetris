@@ -38,6 +38,18 @@ void drawQuad(float x, float y, float w, float h, GLuint tex)
     glEnd();
 }
 
+// Draw a quad with it's texture repeated within it's area.
+void drawQuadRepeatTex(float x, float y, float w, float h, GLuint tex, int tex_w, int tex_h)
+{
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glBegin(GL_QUADS);
+        glTexCoord2f(0,0);glVertex2f(x, y + h);
+        glTexCoord2f((w / tex_w),0);glVertex2f(x + w, y + h);
+        glTexCoord2f((w / tex_w),(h /tex_h));glVertex2f(x + w, y);
+        glTexCoord2f(0,(h / tex_h));glVertex2f(x, y);
+    glEnd();
+}
+
 // Draw a square
 void drawSquare(float x, float y, float size, Colour colour)
 {

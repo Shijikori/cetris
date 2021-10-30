@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
     glEnable(GL_TEXTURE_2D); // Make sure 2D textures are enabled *shrug*
 
     GLuint tex[2];
-    tex[0] = textureFromPPM("assets/image/test.ppm");
+    tex[0] = textureFromPPM("assets/textures/brick-background.ppm");
     genBitmap(fb_w, fb_h, bitmap);
     tex[1] = genTexture2D(bitmap, fb_w, fb_h);
 
@@ -81,7 +81,8 @@ int main(int argc, char *argv[])
 
         drawQuad(0, 0, fb_w, fb_h, tex[1]);
 
-        drawQuad((fb_w / 2) - 32, (fb_h / 2) - 32, 64, 64, tex[0]);
+        //drawQuad((fb_w / 2) - 32, (fb_h / 2) - 32, 64, 64, tex[0]);
+        drawQuadRepeatTex(0, 0, fb_w, fb_h, tex[0], 128, 128);
 
         // swap buffers for display (double buffering)
         glfwSwapBuffers(window);
