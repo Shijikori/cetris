@@ -1,7 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
-#include <GL/gl.h>
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SFML/Audio.hpp>
 #include "libs/shapes.hpp"
@@ -41,10 +41,21 @@ int main(int argc, char *argv[])
     // set context
     glfwMakeContextCurrent(window);
 
+    // load extensions
+    glewExperimental = GL_TRUE;
+    GLenum err = glewInit();
+    if (err)
+    {
+        std::cout << "Failed to load GL Extensions.\n" << glewGetErrorString(err) << "\n";
+        return -1;
+    }
+
     // print GL version
-    std::cout << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << "\n";
+    std::cout << glGetString(GL_RENDERER) << "\n";
     std::cout << glGetString(GL_VERSION) << "\n";
     
+    glViewport(0, 0, _G_WIDTH, _G_HEIGHT);
+
     // set GL orthographic view
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
